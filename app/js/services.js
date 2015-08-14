@@ -1,12 +1,14 @@
-'use strict';
+angular.module('F1FeederApp.services', []).
+  factory('ergastAPIservice', function($http) {
 
-// Declare app level module which depends on views, and components
-angular.module('myApp', [
-  'ngRoute',
-  'myApp.view1',
-  'myApp.view2',
-  'myApp.version'
-]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
-}]);
+    var ergastAPI = {};
+
+    ergastAPI.getDrivers = function() {
+      return $http({
+        method: 'JSONP', 
+        url: 'http://ergast.com/api/f1/2013/driverStandings.json?callback=JSON_CALLBACK'
+      });
+    }
+
+    return ergastAPI;
+  });
